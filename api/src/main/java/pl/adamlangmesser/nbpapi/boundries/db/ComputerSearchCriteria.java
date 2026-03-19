@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 public record ComputerSearchCriteria(//TODO:add valdiation
         String nameFragment,
-        LocalDate bookingDate,
+        LocalDate dateFrom,
+        LocalDate dateTo,
         String sortBy,       // "name" albo "bookingDate"
         String sortDirection // "asc" albo "desc"
 ) {}

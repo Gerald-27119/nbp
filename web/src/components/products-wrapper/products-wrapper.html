@@ -1,6 +1,39 @@
-<div class="min-h-10 p-10 flex flex-col gap-3" >
-  <div class="  ">
-    <input [(ngModel)]="nameFragment" (ngModelChange)="loadProducts()" placeholder="Wpisz nazwę" class="p-2  rounded-md border-1 shadow-sm" />
+<div class="min-h-10 p-10 flex flex-col gap-3">
+  <div class="flex gap-3 items-end flex-wrap">
+    <input
+      [(ngModel)]="nameFragment"
+      (ngModelChange)="loadProducts()"
+      placeholder="Wpisz nazwę"
+      class="p-2 rounded-md border shadow-sm"
+    />
+
+    <div class="flex flex-col">
+      <label class="text-sm mb-1">Od</label>
+      <input
+        type="date"
+        [(ngModel)]="dateFrom"
+        (change)="loadProducts()"
+        class="p-2 rounded-md border shadow-sm"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm mb-1">Do</label>
+      <input
+        type="date"
+        [(ngModel)]="dateTo"
+        (change)="loadProducts()"
+        class="p-2 rounded-md border shadow-sm"
+      />
+    </div>
   </div>
+
+  <div class="grid grid-cols-4">
+    <p>nazwa</p>
+    <p>data</p>
+    <p>cena USD</p>
+    <p>cena PLN</p>
+  </div>
+
   <app-products [products]="products()"></app-products>
 </div>

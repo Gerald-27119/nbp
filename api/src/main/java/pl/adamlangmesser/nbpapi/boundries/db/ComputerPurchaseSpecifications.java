@@ -25,9 +25,15 @@ public final class ComputerPurchaseSpecifications {
                 );
             }
 
-            if (criteria.bookingDate() != null) {
+            if (criteria.dateFrom() != null) {
                 predicates.add(
-                        cb.equal(root.get("bookingDate"), criteria.bookingDate())
+                        cb.greaterThanOrEqualTo(root.get("bookingDate"), criteria.dateFrom())
+                );
+            }
+
+            if (criteria.dateTo() != null) {
+                predicates.add(
+                        cb.lessThanOrEqualTo(root.get("bookingDate"), criteria.dateTo())
                 );
             }
 

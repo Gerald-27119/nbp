@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Products } from '../products/products';
 import { FormsModule } from '@angular/forms';
 
@@ -24,25 +24,36 @@ export class ProductsWrapper implements OnInit {
   products = signal<IProduct[]>([]);
   nameFragment = '';
 
+  dateFrom = '';
+  dateTo = '';
+
   ngOnInit(): void {
     this.loadProducts();
   }
 
-  // TODO: dodac debounce
+  // TODO: dodać debounce
   loadProducts(): void {
-    this.http.get<IProduct[]>('http://localhost:8080/controller', {
-      params: {
-        nameFragment: this.nameFragment,
-        sortBy: 'name',
-        sortDirection: 'asc',
-      },
-    }).subscribe({
-      next: (data) => {
-        this.products.set(data);
-      },
-      error: (err) => {
-        console.error('Błąd pobierania produktów', err);
-      },
-    });
+    let params = new HttpParams()
+      .set('nameFragment', this.nameFragment)
+      .set('sortBy', 'name')
+      .set('sortDirection', 'asc');
+
+    if (this.dateFrom) {
+      params = params.set('dateFrom', this.dateFrom);
+    }
+
+    if (this.dateTo) {
+      params = params.set('dateTo', this.dateTo);
+    }
+
+    this.http.get<IProduct[]>('http://localhost:8080/controller', { params })
+      .subscribe({
+        next: (data) => {
+          this.products.set(data);
+        },
+        error: (err) => {
+          console.error('Błąd pobierania produktów', err);
+        },
+      });
   }
 }
