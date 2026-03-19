@@ -1,0 +1,19 @@
+package pl.adamlangmesser.nbpapi.model;
+
+import java.time.LocalDate;
+
+public record ComputerSearchCriteria(//TODO:add valdiation
+        String nameFragment,
+        LocalDate bookingDate,
+        String sortBy,       // "name" albo "bookingDate"
+        String sortDirection // "asc" albo "desc"
+) {}
+//public enum ComputerSortField {
+//    NAME,
+//    BOOKING_DATE
+//}
+//
+//public enum SortDirection {
+//    ASC,
+//    DESC
+//}TODO
