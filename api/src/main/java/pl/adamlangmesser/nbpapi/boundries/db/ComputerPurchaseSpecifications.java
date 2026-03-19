@@ -1,7 +1,8 @@
-package pl.adamlangmesser.nbpapi.model;
+package pl.adamlangmesser.nbpapi.boundries.db;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import pl.adamlangmesser.nbpapi.model.ProductEntity;
 
 import java.util.ArrayList;
 import java.util.List;

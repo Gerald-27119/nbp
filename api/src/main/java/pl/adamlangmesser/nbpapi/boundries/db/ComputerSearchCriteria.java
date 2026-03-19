@@ -1,4 +1,4 @@
-package pl.adamlangmesser.nbpapi.model;
+package pl.adamlangmesser.nbpapi.boundries.db;
 
 import java.time.LocalDate;
 

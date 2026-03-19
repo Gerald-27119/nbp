@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.boundries.db.ProductEntityAdapter;
 import pl.adamlangmesser.nbpapi.boundries.nbp.RateClient;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
-import pl.adamlangmesser.nbpapi.model.ComputerSearchCriteria;
+import pl.adamlangmesser.nbpapi.boundries.db.ComputerSearchCriteria;
 
 import java.math.BigDecimal;
 import java.util.List;

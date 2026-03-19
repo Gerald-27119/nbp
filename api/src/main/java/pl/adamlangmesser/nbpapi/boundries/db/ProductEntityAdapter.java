@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
-import pl.adamlangmesser.nbpapi.model.ComputerPurchaseSpecifications;
-import pl.adamlangmesser.nbpapi.model.ComputerSearchCriteria;
 import pl.adamlangmesser.nbpapi.model.ProductEntity;
 import pl.adamlangmesser.nbpapi.model.ProductEntityRepository;
 
