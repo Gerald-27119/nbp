@@ -1,0 +1,6 @@
+<div class="min-h-10 p-10 flex flex-col gap-3" >
+  <div class="  ">
+    <input [(ngModel)]="nameFragment" (ngModelChange)="loadProducts()" placeholder="Wpisz nazwę" class="p-2  rounded-md border-1 shadow-sm" />
+  </div>
+  <app-products [products]="products()"></app-products>
+</div>

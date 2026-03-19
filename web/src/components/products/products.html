@@ -1,0 +1,7 @@
+<!--//TODO:lepsze tagi-->
+<div class="flex flex-col  gap-1">
+  <!-- TODO: uwaga, zalozenie uniaktowych nazw, moze cos lepszego trzeba-->
+  @for (product of products(); track product.name) {
+      <app-product [product]="product"></app-product>
+  }
+</div>
