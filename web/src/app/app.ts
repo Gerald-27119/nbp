@@ -6,8 +6,7 @@ import {ProductsWrapper} from '../components/products-wrapper/products-wrapper';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ProductsWrapper],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  templateUrl: './app.html'
 })
 export class App {
 }

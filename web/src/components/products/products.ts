@@ -6,8 +6,7 @@ import {Product} from "../product/product";
   selector: 'app-products',
   imports: [Product],
   standalone: true,//todo: cot to?
-  templateUrl: './products.html',
-  styleUrl: './products.css',
+  templateUrl: './products.html'
 })
 export class Products {
   products = input.required<IProduct[]>();

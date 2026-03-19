@@ -5,8 +5,7 @@ import {IProduct} from '../products-wrapper/products-wrapper';
   selector: 'app-product',
   imports: [],
   standalone: true,
-  templateUrl: './product.html',
-  styleUrl: './product.css',
+  templateUrl: './product.html'
 })
 export class Product {
   product = input.required<IProduct>();
