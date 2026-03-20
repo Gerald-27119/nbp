@@ -13,6 +13,7 @@ import pl.adamlangmesser.nbpapi.domain.AmountConverter;
 import pl.adamlangmesser.nbpapi.domain.Service;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
 import pl.adamlangmesser.nbpapi.boundries.db.ComputerSearchCriteria;
+import pl.adamlangmesser.nbpapi.domain.model.ProductsPage;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -34,17 +35,23 @@ class Controller {
     }
 
     @GetMapping
-    ResponseEntity<List<Product>> query(@RequestParam(required = false) String nameFragment,
-                                        @RequestParam(required = false) LocalDate dateFrom,
-                                        @RequestParam(required = false) LocalDate dateTo,
-                                        @RequestParam(defaultValue = "name") String sortBy,//TODO; tak nie moze byc, defaultowo nie powinno byc zadnychs ortowan
-                                        @RequestParam(defaultValue = "asc") String sortDirection) {//TODO:zrobic zarkes dat
+    ResponseEntity<ProductsPage> query(@RequestParam(required = false) String nameFragment,
+                                       @RequestParam(required = false) LocalDate dateFrom,
+                                       @RequestParam(required = false) LocalDate dateTo,
+                                       @RequestParam(defaultValue = "name") String sortBy,//TODO; tak nie moze byc, defaultowo nie powinno byc zadnychs ortowan
+                                       @RequestParam(defaultValue = "asc") String sortDirection,//TODO:zrobic zarkes dat
+                                       @RequestParam(defaultValue = "0") Integer page,//TODO:zrobic zarkes dat
+                                       @RequestParam(defaultValue = "10") Integer pageSize) {//TODO:zrobic zarkes dat
         return ResponseEntity.ok(service.query(
-                new ComputerSearchCriteria(
-                        nameFragment,
-                        dateFrom,
-                        dateTo,
-                        sortBy,
-                        sortDirection)));//TODO: fix?
+                        new ComputerSearchCriteria(
+                                nameFragment,
+                                dateFrom,
+                                dateTo,
+                                sortBy,
+                                sortDirection,
+                                page,
+                                pageSize)
+                )
+        );//TODO: fix?
     }
 }

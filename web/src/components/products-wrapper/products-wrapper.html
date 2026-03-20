@@ -1,12 +1,14 @@
-<div class="min-h-10 p-10 flex flex-col ">
+<div class="min-h-10 p-10 flex flex-col">
   <div class="flex gap-3 items-end flex-wrap">
-    <input
-      [(ngModel)]="nameFragment"
-      (ngModelChange)="loadProducts()"
-      placeholder="Wpisz nazwę"
-      class="p-2 rounded-md border shadow-sm"
-    />
-
+    <div class="flex flex-col">
+      <label class="text-sm mb-1">Szukaj</label>
+      <input
+        [(ngModel)]="nameFragment"
+        (ngModelChange)="loadProducts()"
+        placeholder="Wpisz nazwę"
+        class="p-2 rounded-md border shadow-sm min-w-[23vw]"
+      />
+    </div>
     <div class="flex flex-col">
       <label class="text-sm mb-1">Od</label>
       <input
@@ -26,14 +28,58 @@
         class="p-2 rounded-md border shadow-sm"
       />
     </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm mb-1">Sortuj po</label>
+      <select
+        [(ngModel)]="sortBy"
+        (change)="loadProducts()"
+        class="p-2 rounded-md border shadow-sm bg-white"
+      >
+        <option value="bookingDate">Data księgowania</option>
+        <option value="name">Nazwa</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm mb-1">Kierunek</label>
+      <select
+        [(ngModel)]="sortDirection"
+        (change)="loadProducts()"
+        class="p-2 rounded-md border shadow-sm bg-white"
+      >
+        <option value="desc">Malejąco</option>
+        <option value="asc">Rosnąco</option>
+      </select>
+    </div>
+
+    <div class="flex ">
+      <p>Liczba wyników: {{ [totalElements] }}</p>
+    </div>
   </div>
 
   <div class="grid grid-cols-4 bg-blue-300 p-2 rounded-sm text-white capitalize mt-3 mb-1 drop-shadow-sm">
     <p>nazwa</p>
-    <p>data</p>
+    <p>data księgowania</p>
     <p>cena USD</p>
     <p>cena PLN</p>
   </div>
 
-  <app-products [products]="products()"></app-products>
+  <div class="min-h-[70vh]">
+    <app-products [products]="products()"></app-products>
+  </div>
+
+  <div class="flex ">
+    <button [disabled]="!hasPrevious"
+            (click) = "handlePrevious()"
+            class="bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-300 transition py-1 px-2 rounded-xl  disabled:bg-gray-300 disabled:cursor-not-allowed" >
+      poprzednia
+    </button>
+    <div class="text-center mx-auto ">strona: {{ pageNumber + 1 }}</div>
+    <button [disabled]="!hasNext"
+            (click) = "handleNext()"
+            class="bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-300 transition py-1 px-2 rounded-xl  disabled:bg-gray-300 disabled:cursor-not-allowed">
+      następna
+    </button>
+  </div>
 </div>

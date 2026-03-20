@@ -3,6 +3,14 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Products} from '../products/products';
 import {FormsModule} from '@angular/forms';
 
+export interface IProductsPage {
+  products: IProduct[],
+  totalElements: number,
+  hasNext: boolean
+  hasPrevious: boolean
+  number: number
+}
+
 export interface IProduct {
   id: number;
   name: string;
@@ -22,20 +30,34 @@ export class ProductsWrapper implements OnInit {
 
   products = signal<IProduct[]>([]);
   nameFragment = '';
-
+  sortBy = 'bookingDate';
+  sortDirection = 'desc';
   dateFrom = '';
   dateTo = '';
+  totalElements = 0;
+  pageNumber = 0;
+  hasNext = false;
+  hasPrevious = false;
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.loadProducts(this.pageNumber);
+  }
+
+  handlePrevious(): void {
+    this.loadProducts(this.pageNumber - 1)
+  }
+
+  handleNext(): void {
+    this.loadProducts(this.pageNumber + 1)
   }
 
   // TODO: dodać debounce
-  loadProducts(): void {
+  loadProducts(newPageNumber: number = 0): void {
     let params = new HttpParams()
+      .set('page', newPageNumber)
       .set('nameFragment', this.nameFragment)
-      .set('sortBy', 'name')
-      .set('sortDirection', 'asc');
+      .set('sortBy', this.sortBy)
+      .set('sortDirection', this.sortDirection);
 
     if (this.dateFrom) {
       params = params.set('dateFrom', this.dateFrom);
@@ -45,10 +67,14 @@ export class ProductsWrapper implements OnInit {
       params = params.set('dateTo', this.dateTo);
     }
 
-    this.http.get<IProduct[]>('http://localhost:8080/controller', {params})
+    this.http.get<IProductsPage>('http://localhost:8080/controller', {params})
       .subscribe({
         next: (data) => {
-          this.products.set(data);
+          this.products.set(data.products);
+          this.totalElements = data.totalElements;
+          this.pageNumber = data.number;
+          this.hasNext = data.hasNext;
+          this.hasPrevious = data.hasPrevious;
         },
         error: (err) => {
           console.error('Błąd pobierania produktów', err);

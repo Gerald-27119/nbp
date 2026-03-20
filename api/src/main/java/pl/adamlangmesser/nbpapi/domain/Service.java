@@ -1,11 +1,13 @@
 package pl.adamlangmesser.nbpapi.domain;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.boundries.db.ProductEntityAdapter;
 import pl.adamlangmesser.nbpapi.boundries.nbp.RateClient;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
 import pl.adamlangmesser.nbpapi.boundries.db.ComputerSearchCriteria;
+import pl.adamlangmesser.nbpapi.domain.model.ProductsPage;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,7 +29,7 @@ public class Service implements AmountConverter{
         return amountInPLN;
     }
 
-    public List<Product> query(ComputerSearchCriteria criteria ){
+    public ProductsPage query(ComputerSearchCriteria criteria){
         return productEntityAdapter.query(criteria);
     }
 

@@ -2,9 +2,13 @@ package pl.adamlangmesser.nbpapi.boundries.db;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
+import pl.adamlangmesser.nbpapi.domain.model.ProductsPage;
 import pl.adamlangmesser.nbpapi.model.ProductEntity;
 import pl.adamlangmesser.nbpapi.model.ProductEntityRepository;
 
@@ -24,16 +28,25 @@ public class ProductEntityAdapter {
         productEntityRepository.saveAll(productEntities);
     }
 
-    public List<Product> query(ComputerSearchCriteria criteria) {
+    public ProductsPage query(ComputerSearchCriteria criteria) {
         Sort sort = Sort.by(
                 Sort.Direction.fromString(criteria.sortDirection()),
                 criteria.sortBy()
         );
 
-        return productEntityRepository.findAll(
+        Pageable pageable = PageRequest.of(criteria.page(), criteria.pageSize(), sort);
+
+        Page<ProductEntity> page = productEntityRepository.findAll(
                 ComputerPurchaseSpecifications.byCriteria(criteria),
-                sort
-        ).stream().map(this::map).toList();
+                pageable);
+
+        return ProductsPage.builder()
+                .products(page.get().map(this::map).toList())
+                .totalElements(page.getTotalElements())
+                .hasPrevious(page.hasPrevious())
+                .hasNext(page.hasNext())
+                .number(page.getNumber())
+                .build();
     }
 
     public void clear() {
@@ -57,4 +70,5 @@ public class ProductEntityAdapter {
                 .priceUSD(product.getPriceUSD())
                 .build();
     }
+
 }
