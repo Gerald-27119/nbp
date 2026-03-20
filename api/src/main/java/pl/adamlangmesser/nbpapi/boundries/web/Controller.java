@@ -40,8 +40,7 @@ class Controller {
                                        @RequestParam(required = false) LocalDate dateTo,
                                        @RequestParam(defaultValue = "name") String sortBy,//TODO; tak nie moze byc, defaultowo nie powinno byc zadnychs ortowan
                                        @RequestParam(defaultValue = "asc") String sortDirection,//TODO:zrobic zarkes dat
-                                       @RequestParam(defaultValue = "0") Integer page,//TODO:zrobic zarkes dat
-                                       @RequestParam(defaultValue = "10") Integer pageSize) {//TODO:zrobic zarkes dat
+                                       @RequestParam(defaultValue = "0") Integer page) {//TODO:zrobic zarkes dat) {//TODO:zrobic zarkes dat
         return ResponseEntity.ok(service.query(
                         new ComputerSearchCriteria(
                                 nameFragment,
@@ -50,7 +49,7 @@ class Controller {
                                 sortBy,
                                 sortDirection,
                                 page,
-                                pageSize)
+                                12)
                 )
         );//TODO: fix?
     }

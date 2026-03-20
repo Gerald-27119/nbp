@@ -1,6 +1,7 @@
 package pl.adamlangmesser.nbpapi.boundries.xml;
 
 public class XMLWriter {
+
 }
 
 //Format pliku XML:
