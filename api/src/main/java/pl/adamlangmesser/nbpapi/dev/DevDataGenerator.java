@@ -7,8 +7,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.boundries.db.ProductEntityAdapter;
 import pl.adamlangmesser.nbpapi.boundries.nbp.RateClient;
+import pl.adamlangmesser.nbpapi.boundries.xml.XMLWriter;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
@@ -21,6 +23,7 @@ class DevDataGenerator implements ApplicationRunner {
 
     private final RateClient rateClient;
     private final ProductEntityAdapter productEntityAdapter;
+    private final XMLWriter xmlWriter;
 
     //  - komputer ACER Aspire – kwota 345 USD
     //  - komputer DELL Latitude – kwota 543 USD
@@ -47,6 +50,11 @@ class DevDataGenerator implements ApplicationRunner {
             var rate = rateClient.getRateUSDtoPLN(laptop.getBookingDate());
             var pricePLN = laptop.getPriceUSD().multiply(rate);
             laptop.setPricePLN(pricePLN);
+            try {
+                xmlWriter.write(new XMLWriter.XMLProduct(laptop.getName(), laptop.getBookingDate().toString(), laptop.getPriceUSD(), laptop.getPricePLN()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }).toList());
     }
 
