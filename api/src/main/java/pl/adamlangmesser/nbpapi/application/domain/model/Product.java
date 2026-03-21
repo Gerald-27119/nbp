@@ -1,4 +1,4 @@
-package pl.adamlangmesser.nbpapi.domain.model;
+package pl.adamlangmesser.nbpapi.application.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

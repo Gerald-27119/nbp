@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class NBPClient implements RateClient {
+public class NBPClient implements RateClient {//TODO: pozmeiniaj levele widocznosci
 //    TODO: zrobic ladne porzadne hexagonal!
 
     //    TODO:dodac cachwoanie, zmienic nazwy

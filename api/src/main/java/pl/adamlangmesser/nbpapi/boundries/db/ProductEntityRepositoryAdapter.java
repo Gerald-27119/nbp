@@ -7,8 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import pl.adamlangmesser.nbpapi.domain.model.Product;
-import pl.adamlangmesser.nbpapi.domain.model.ProductsPage;
+
+import pl.adamlangmesser.nbpapi.application.domain.model.Product;
+import pl.adamlangmesser.nbpapi.application.domain.model.ProductsPage;
 import pl.adamlangmesser.nbpapi.model.ProductEntity;
 import pl.adamlangmesser.nbpapi.model.ProductEntityRepository;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ProductEntityAdapter {
+public class ProductEntityRepositoryAdapter {
 
     private final ProductEntityRepository productEntityRepository;
 

@@ -4,20 +4,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.adamlangmesser.nbpapi.domain.AmountConverter;
-import pl.adamlangmesser.nbpapi.domain.Service;
-import pl.adamlangmesser.nbpapi.domain.model.Product;
-import pl.adamlangmesser.nbpapi.boundries.db.ComputerSearchCriteria;
-import pl.adamlangmesser.nbpapi.domain.model.ProductsPage;
+import pl.adamlangmesser.nbpapi.application.ProductServiceAdapter;
+
+import pl.adamlangmesser.nbpapi.application.domain.model.ProductsPage;
+import pl.adamlangmesser.nbpapi.application.in.ComputerSearchQueryDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @CrossOrigin(origins = "*")//TODO; write config
@@ -26,13 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 class Controller {
 
-    private final AmountConverter amountConverter;
-    private final Service service;
-
-    @GetMapping("convert/{amount}")
-    ResponseEntity<BigDecimal> getExchangeRates(@PathVariable BigDecimal amount) {//TODO: change name to convert
-        return ResponseEntity.ok(amountConverter.convertFromUSDtoPLN(amount));
-    }
+    private final ProductServiceAdapter productServiceAdapter;
 
     @GetMapping
     ResponseEntity<ProductsPage> query(@RequestParam(required = false) String nameFragment,
@@ -41,16 +31,17 @@ class Controller {
                                        @RequestParam(defaultValue = "name") String sortBy,//TODO; tak nie moze byc, defaultowo nie powinno byc zadnychs ortowan
                                        @RequestParam(defaultValue = "asc") String sortDirection,//TODO:zrobic zarkes dat
                                        @RequestParam(defaultValue = "0") Integer page) {//TODO:zrobic zarkes dat) {//TODO:zrobic zarkes dat
-        return ResponseEntity.ok(service.query(
-                        new ComputerSearchCriteria(
+        return ResponseEntity.ok(productServiceAdapter.query(
+                        new ComputerSearchQueryDto(
                                 nameFragment,
                                 dateFrom,
                                 dateTo,
                                 sortBy,
                                 sortDirection,
                                 page,
-                                12)
+                                12
+                        )
                 )
-        );//TODO: fix?
+        );//TODO: fix?/ enhance
     }
 }

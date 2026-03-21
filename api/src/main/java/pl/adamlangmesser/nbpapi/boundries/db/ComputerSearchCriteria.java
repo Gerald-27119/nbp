@@ -21,3 +21,5 @@ public record ComputerSearchCriteria(//TODO:add valdiation
 //    ASC,
 //    DESC
 //}TODO
+
+//TODO:nazwa na query?

@@ -1,4 +1,4 @@
-package pl.adamlangmesser.nbpapi.domain;
+package pl.adamlangmesser.nbpapi.application.domain;
 
 import java.math.BigDecimal;
 
