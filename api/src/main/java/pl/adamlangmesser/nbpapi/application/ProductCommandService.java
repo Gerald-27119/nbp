@@ -3,13 +3,12 @@ package pl.adamlangmesser.nbpapi.application;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import pl.adamlangmesser.nbpapi.adapters.exchange.rate.ExchangeRateProviderAdapter;
-import pl.adamlangmesser.nbpapi.adapters.persistence.ProductEntityRepositoryAdapter;
-import pl.adamlangmesser.nbpapi.adapters.xml.WriteProductDto;
-import pl.adamlangmesser.nbpapi.adapters.xml.XMLWriterAdapter;
-import pl.adamlangmesser.nbpapi.domain.CurrencyConverter;
+import pl.adamlangmesser.nbpapi.adapters.out.exchange.rate.ExchangeRateProviderAdapter;
+import pl.adamlangmesser.nbpapi.adapters.out.persistence.ProductEntityRepositoryAdapter;
+import pl.adamlangmesser.nbpapi.adapters.out.xml.XMLWriterAdapter;
+import pl.adamlangmesser.nbpapi.application.currency.conversion.CurrencyConverter;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
-import pl.adamlangmesser.nbpapi.domain.model.ProductDraft;
+import pl.adamlangmesser.nbpapi.domain.model.NewProductData;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,16 +23,17 @@ public class ProductCommandService {
     private final ProductEntityRepositoryAdapter productEntityRepositoryAdapter;
     private final XMLWriterAdapter xmlWriterAdapter;
 
-    public void addAll(List<ProductDraft> productDrafts) {
-        List<Product> products = productDrafts.stream().map(draft -> {
+    public void addAll(List<NewProductData> newProductData) {
+        List<Product> products = newProductData.stream().map(draft -> {
             BigDecimal usdToPlnRate = exchangeRateProviderAdapter.getUsdToPlnRate(draft.bookingDate());
             BigDecimal pricePLN = currencyConverter.convertUsdToPln(usdToPlnRate, draft.priceUSD());
+            Product product = new Product(draft.name(), draft.bookingDate(), draft.priceUSD(), pricePLN);
             try {
-                xmlWriterAdapter.writeProduct(new WriteProductDto(draft.name(), draft.bookingDate().toString(), draft.priceUSD(), pricePLN));
+                xmlWriterAdapter.writeProduct(product);
             } catch (IOException e) {
                 throw new RuntimeException(e);//TODO:enhance
             }
-            return new Product(draft.name(), draft.bookingDate(), draft.priceUSD(), pricePLN);
+            return product;
         }).toList();
 
         productEntityRepositoryAdapter.saveAll(products);
