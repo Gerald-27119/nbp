@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProductsWrapper } from './products-wrapper';
+import {ProductsWrapper} from './products-wrapper';
 
 describe('ProductsWrapper', () => {
   let component: ProductsWrapper;

@@ -13,7 +13,6 @@ import pl.adamlangmesser.nbpapi.application.ports.out.ProductXmlWriterPort;
 import pl.adamlangmesser.nbpapi.domain.model.NewProductData;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,18 +27,19 @@ public class ProductCommandService implements AddProductsUseCase {
     private final ProductXmlWriterPort xmlWriter;
 
     @Override
-    public void addAll(@NotEmpty List<@Valid NewProductData> newProductData) {
+    public void addAll(List<NewProductData> newProductData) {
         List<Product> products = newProductData.stream().map(draft -> {
             BigDecimal usdToPlnRate = exchangeRateProvider.getUsdToPlnRate(draft.bookingDate());
             BigDecimal pricePLN = currencyConverter.convertUsdToPln(usdToPlnRate, draft.priceUSD());
-            Product product = new Product(draft.name(), draft.bookingDate(), draft.priceUSD(), pricePLN);
 
-            try {
-                xmlWriter.writeProduct(product);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Product product = new Product(
+                    draft.name(),
+                    draft.bookingDate(),
+                    draft.priceUSD(),
+                    pricePLN
+            );
 
+            xmlWriter.writeProduct(product);
             return product;
         }).toList();
 
