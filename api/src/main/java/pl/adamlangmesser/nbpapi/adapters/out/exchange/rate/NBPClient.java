@@ -11,7 +11,7 @@ import java.util.List;
 class NBPClient {//TODO: pozmeiniaj levele widocznosci
 //    TODO: zrobic ladne porzadne hexagonal!
 
-    //    TODO:dodac cachwoanie, zmienic nazwy
+    //    TODO:zmienic nazwy
     public BigDecimal getRateUSDtoPLN(LocalDate localDate) {
         String table = "A";
         String code = "USD";

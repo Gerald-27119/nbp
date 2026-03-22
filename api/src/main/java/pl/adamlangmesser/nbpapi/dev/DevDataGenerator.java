@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.adamlangmesser.nbpapi.adapters.out.persistence.ProductEntityRepositoryAdapter;
 import pl.adamlangmesser.nbpapi.application.ProductCommandService;
+import pl.adamlangmesser.nbpapi.application.ports.in.command.AddProductsUseCase;
+import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
 import pl.adamlangmesser.nbpapi.domain.model.NewProductData;
 
 import java.math.BigDecimal;
@@ -19,8 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 class DevDataGenerator implements ApplicationRunner {
 
-    private final ProductCommandService productCommandService;
-    private final ProductEntityRepositoryAdapter productEntityRepositoryAdapter;
+    private final AddProductsUseCase productCommandService;
+    private final ProductPersistencePort productPersistencePort;
 
     //  - komputer ACER Aspire – kwota 345 USD
     //  - komputer DELL Latitude – kwota 543 USD
@@ -32,7 +34,7 @@ class DevDataGenerator implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        productEntityRepositoryAdapter.clear();
+        productPersistencePort.clear();
 
         this.populateDB();
         this.extraPopulateDB();

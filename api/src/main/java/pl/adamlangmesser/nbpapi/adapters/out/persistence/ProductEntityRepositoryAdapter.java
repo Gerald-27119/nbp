@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import pl.adamlangmesser.nbpapi.adapters.out.persistence.model.ProductEntity;
 import pl.adamlangmesser.nbpapi.adapters.out.persistence.model.ProductEntityRepository;
+import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
 import pl.adamlangmesser.nbpapi.domain.model.Product;
 import pl.adamlangmesser.nbpapi.application.model.ProductsPage;
 import pl.adamlangmesser.nbpapi.application.model.ProductsQuery;
@@ -18,11 +19,12 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class ProductEntityRepositoryAdapter {
+public class ProductEntityRepositoryAdapter implements ProductPersistencePort {
 
     private final ProductEntityRepository productEntityRepository;
 
     @Transactional//TODO czym sie rozni od wersji springowej, jakas obluga bledow?
+    @Override
     public void saveAll(List<Product> products) {//TODO: daj valdiatio nna product, tam gdzie nie uzywasz pełnego zmien na buidler
         List<ProductEntity> productEntities = products.stream()
                 .map(this::map)
@@ -30,6 +32,7 @@ public class ProductEntityRepositoryAdapter {
         productEntityRepository.saveAll(productEntities);
     }
 
+    @Override
     public ProductsPage query(ProductsQuery query) {
         Sort sort = Sort.by(
                 Sort.Direction.fromString(query.sortDirection()),
@@ -59,6 +62,7 @@ public class ProductEntityRepositoryAdapter {
                 .build();
     }
 
+    @Override
     public void clear() {
         productEntityRepository.deleteAll();
     }
