@@ -30,6 +30,8 @@ Warstwa frontendowa aplikacji umożliwia:
     - po nazwie,
     - po dacie księgowania.
 
+### Backend zawiera przykładowe testy jednostkowe napisane za pomocą Junit oraz Mockito
+
 # URUCHOMIENIE PROJEKTU
 
 Projekt składa się z trzech części:
