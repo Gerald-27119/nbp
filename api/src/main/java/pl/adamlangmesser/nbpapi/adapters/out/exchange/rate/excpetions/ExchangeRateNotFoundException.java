@@ -8,7 +8,7 @@ public class ExchangeRateNotFoundException extends RuntimeException {
                                          String quoteCurrency,
                                          LocalDate startDate,
                                          LocalDate endDate) {
-        super("Nie znaleziono kursu %s/%s w API NBP dla zakresu od %s do %s."
+        super("Exchange rate %s/%s was not found in the NBP API for the date range from %s to %s."
                 .formatted(baseCurrency, quoteCurrency, startDate, endDate));
     }
 }

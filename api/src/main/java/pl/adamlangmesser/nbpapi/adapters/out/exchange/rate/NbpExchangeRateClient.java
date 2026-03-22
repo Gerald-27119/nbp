@@ -81,13 +81,13 @@ class NbpExchangeRateClient {
             }
 
             throw new ExchangeRateProviderException(
-                    "NBP zwróciło błąd HTTP %s podczas pobierania kursu %s/%s dla dnia %s."
+                    "NBP returned HTTP error %s while fetching the %s/%s exchange rate for date %s."
                             .formatted(ex.getStatusCode(), properties.usdCode(), OUTPUT_CURRENCY, date),
                     ex
             );
         } catch (RestClientException ex) {
             throw new ExchangeRateProviderException(
-                    "Nie udało się połączyć z API NBP podczas pobierania kursu %s/%s dla dnia %s."
+                    "Failed to connect to the NBP API while fetching the %s/%s exchange rate for date %s."
                             .formatted(properties.usdCode(), OUTPUT_CURRENCY, date),
                     ex
             );

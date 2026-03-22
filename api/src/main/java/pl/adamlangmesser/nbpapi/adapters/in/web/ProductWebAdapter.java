@@ -16,7 +16,7 @@ import pl.adamlangmesser.nbpapi.application.ports.in.query.QueryProductsUseCase;
 import java.time.LocalDate;
 
 
-@CrossOrigin(origins = "*")//TODO; write config
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("controller")
 @AllArgsConstructor
@@ -28,9 +28,9 @@ class ProductWebAdapter {
     ResponseEntity<ProductsPageDto> query(@RequestParam(required = false) String nameFragment,
                                           @RequestParam(required = false) LocalDate dateFrom,
                                           @RequestParam(required = false) LocalDate dateTo,
-                                          @RequestParam(defaultValue = "name") String sortBy,//TODO; tak nie moze byc, defaultowo nie powinno byc zadnychs ortowan
-                                          @RequestParam(defaultValue = "asc") String sortDirection,//TODO:zrobic zarkes dat
-                                          @RequestParam(defaultValue = "0") Integer page) {//TODO:zrobic zarkes dat) {//TODO:zrobic zarkes dat
+                                          @RequestParam(defaultValue = "name") String sortBy,
+                                          @RequestParam(defaultValue = "asc") String sortDirection,
+                                          @RequestParam(defaultValue = "0") Integer page) {
 
         ProductsPage productsPage = productsQueryService.query(new ProductsQuery(
                 nameFragment,

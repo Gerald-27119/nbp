@@ -22,9 +22,9 @@ public class ProductEntityRepositoryAdapter implements ProductPersistencePort {
 
     private final ProductEntityRepository productEntityRepository;
 
-    @Transactional//TODO czym sie rozni od wersji springowej, jakas obluga bledow?
+    @Transactional
     @Override
-    public void saveAll(List<Product> products) {//TODO: daj valdiatio nna product, tam gdzie nie uzywasz pełnego zmien na buidler
+    public void saveAll(List<Product> products) {
         List<ProductEntity> productEntities = products.stream()
                 .map(this::map)
                 .toList();
