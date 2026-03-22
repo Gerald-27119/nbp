@@ -2,16 +2,13 @@ package pl.adamlangmesser.nbpapi.application;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import pl.adamlangmesser.nbpapi.adapters.out.persistence.ProductEntityRepositoryAdapter;
-import pl.adamlangmesser.nbpapi.adapters.out.xml.XMLWriterAdapter;
 import pl.adamlangmesser.nbpapi.application.currency.conversion.CurrencyConverter;
 import pl.adamlangmesser.nbpapi.application.ports.in.command.AddProductsUseCase;
 import pl.adamlangmesser.nbpapi.application.ports.out.ExchangeRateProviderPort;
 import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
 import pl.adamlangmesser.nbpapi.application.ports.out.ProductXmlWriterPort;
-import pl.adamlangmesser.nbpapi.domain.model.Product;
 import pl.adamlangmesser.nbpapi.domain.model.NewProductData;
+import pl.adamlangmesser.nbpapi.domain.model.Product;
 
 import java.io.IOException;
 import java.math.BigDecimal;

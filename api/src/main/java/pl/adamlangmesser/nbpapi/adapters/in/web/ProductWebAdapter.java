@@ -13,7 +13,6 @@ import pl.adamlangmesser.nbpapi.application.model.ProductsPage;
 import pl.adamlangmesser.nbpapi.application.model.ProductsQuery;
 import pl.adamlangmesser.nbpapi.application.ports.in.query.QueryProductsUseCase;
 
-
 import java.time.LocalDate;
 
 

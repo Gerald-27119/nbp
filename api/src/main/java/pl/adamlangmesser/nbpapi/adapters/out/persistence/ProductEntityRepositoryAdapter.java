@@ -7,13 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
 import pl.adamlangmesser.nbpapi.adapters.out.persistence.model.ProductEntity;
 import pl.adamlangmesser.nbpapi.adapters.out.persistence.model.ProductEntityRepository;
-import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
-import pl.adamlangmesser.nbpapi.domain.model.Product;
 import pl.adamlangmesser.nbpapi.application.model.ProductsPage;
 import pl.adamlangmesser.nbpapi.application.model.ProductsQuery;
+import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
+import pl.adamlangmesser.nbpapi.domain.model.Product;
 
 import java.util.List;
 

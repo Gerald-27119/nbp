@@ -5,8 +5,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import pl.adamlangmesser.nbpapi.adapters.out.persistence.ProductEntityRepositoryAdapter;
-import pl.adamlangmesser.nbpapi.application.ProductCommandService;
 import pl.adamlangmesser.nbpapi.application.ports.in.command.AddProductsUseCase;
 import pl.adamlangmesser.nbpapi.application.ports.out.ProductPersistencePort;
 import pl.adamlangmesser.nbpapi.domain.model.NewProductData;
