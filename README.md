@@ -26,9 +26,8 @@ Aby uruchomić projekt potrzeba:
 Przejdź do katalogu docker:
 ```bash
 cd docker
-```
-
-Uruchom PostgreSQL:
+````
+Uruchom PostgreSQL - musi być działający docker daemon w tle:
 ```bash
 docker compose up -d
 ```
@@ -42,10 +41,6 @@ Przejdź do katalogu backendu:
 cd api
 ```
 
-Sprawdź wersję Javy:
-```bash
-java -version
-```
 > **Uwaga:** Backend wymaga Java 21, zalecana wersja to `21.0.10`.
 
 Uruchom aplikację Spring Boot.
@@ -56,7 +51,7 @@ Uruchom aplikację Spring Boot.
 ```
 *Na Windows:*
 ```powershell
-mvnw.cmd spring-boot:run
+.\mvnw.cmd spring-boot:run
 ```
 
 **Opcja B — jeśli używasz globalnie zainstalowanego Mavena:**
@@ -84,39 +79,11 @@ Uruchom frontend:
 ```bash
 npm start
 ```
-*albo:*
-```bash
-ng serve
-```
 
 Frontend powinien być dostępny domyślnie pod adresem: `http://localhost:4200`
 
 ---
 
-## ZALECANA KOLEJNOŚĆ URUCHAMIANIA
-
-1.  **PostgreSQL** w Dockerze
-2.  **Backend**
-3.  **Frontend**
-
----
-
-## SZYBKI START
-
-### Baza danych:
-```bash
-cd docker && docker compose up -d
-```
-
-### Backend:
-```bash
-cd api && ./mvnw spring-boot:run
-```
-
-### Frontend:
-```bash
-cd web && npm install && npm start
-```
 ***
 # O Projekcie
 
@@ -131,7 +98,6 @@ Projekt jest aplikacją webową składającą się z:
 Aplikacja służy do obsługi produktów, przeliczania ich cen z **USD na PLN** z wykorzystaniem kursu pobieranego z **API NBP**, zapisu danych do **PostgreSQL** oraz eksportu produktów do **plików XML**.
 
 Pliki XML generowane przez aplikację są zapisywane w katalogu:
-
 ```text
 data/xmls
 ```
