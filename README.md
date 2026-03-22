@@ -1,4 +1,35 @@
 
+# Działanie aplikacji:
+
+## Integracja z API NBP
+Aplikacja pobiera kurs **USD/PLN** z API **NBP**.  
+Za komunikację z zewnętrznym serwisem odpowiada klasa `NbpExchangeRateClient`.
+
+W przypadku, gdy `bookingDate` przypada na dzień, dla którego API NBP nie udostępnia kursu (np. weekend lub inny dzień bez notowań), aplikacja nie odpytuje wyłącznie jednej konkretnej daty.  
+Zamiast tego pobierany jest zakres obejmujący **7 dni wstecz**, a następnie wybierany jest najbliższy dostępny kurs dla danej daty księgowania. Dzięki temu aplikacja poprawnie obsługuje przypadki, w których kurs nie został opublikowany dokładnie w podanym dniu.
+
+## Generowanie plików XML
+Podczas tworzenia nowego produktu dane są zapisywane nie tylko w bazie danych, ale również eksportowane do pliku **XML**.
+
+Wygenerowane pliki XML są zapisywane w katalogu:
+
+`data/xmls`
+
+## Dane testowe
+Baza danych jest automatycznie populowana przykładowymi danymi testowymi za pomocą klasy `DevDataGenerator`.
+
+Mechanizm ten działa w ramach profilu Spring **`dev`**, który w projekcie został ustawiony jako profil domyślny.  
+Oznacza to, że po standardowym uruchomieniu aplikacji dane demonstracyjne są automatycznie dostępne.
+
+## Funkcjonalności frontendu
+Warstwa frontendowa aplikacji umożliwia:
+
+- wyszukiwanie produktów po fragmencie nazwy,
+- filtrowanie produktów po zakresie dat (`od` – `do`),
+- sortowanie rosnące i malejące:
+    - po nazwie,
+    - po dacie księgowania.
+
 # URUCHOMIENIE PROJEKTU
 
 Projekt składa się z trzech części:
@@ -13,7 +44,7 @@ Projekt składa się z trzech części:
 Aby uruchomić projekt potrzeba:
 * **Docker** oraz **Docker Compose**
 * **Java 21** (zalecana wersja: `21.0.10`)
-* **Node.js** oraz **npm**
+* **Node.js v24.3.0** oraz **npm 11.5.1**
 
 **Frontend korzysta z:**
 * npm `11.5.1`
