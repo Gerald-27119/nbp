@@ -1,7 +1,10 @@
 package pl.adamlangmesser.nbpapi.application;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import pl.adamlangmesser.nbpapi.application.currency.conversion.CurrencyConverter;
 import pl.adamlangmesser.nbpapi.application.ports.in.command.AddProductsUseCase;
 import pl.adamlangmesser.nbpapi.application.ports.out.ExchangeRateProviderPort;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
+@Validated
 public class ProductCommandService implements AddProductsUseCase {
 
     private final CurrencyConverter currencyConverter;
@@ -24,21 +28,21 @@ public class ProductCommandService implements AddProductsUseCase {
     private final ProductXmlWriterPort xmlWriter;
 
     @Override
-    public void addAll(List<NewProductData> newProductData) {
+    public void addAll(@NotEmpty List<@Valid NewProductData> newProductData) {
         List<Product> products = newProductData.stream().map(draft -> {
             BigDecimal usdToPlnRate = exchangeRateProvider.getUsdToPlnRate(draft.bookingDate());
             BigDecimal pricePLN = currencyConverter.convertUsdToPln(usdToPlnRate, draft.priceUSD());
             Product product = new Product(draft.name(), draft.bookingDate(), draft.priceUSD(), pricePLN);
+
             try {
                 xmlWriter.writeProduct(product);
             } catch (IOException e) {
-                throw new RuntimeException(e);//TODO:enhance
+                throw new RuntimeException(e);
             }
+
             return product;
         }).toList();
 
         productRepository.saveAll(products);
     }
-
-
 }

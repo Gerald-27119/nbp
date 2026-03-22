@@ -8,3 +8,10 @@ spring:
       ddl-auto: create
 server:
   port: 8080
+integration:
+  nbp:
+    base-url: https://api.nbp.pl/api
+    rates-path: /exchangerates/rates/{table}/{code}/{startDate}/{endDate}
+    table: A
+    usd-code: USD
+    lookback-days: 7

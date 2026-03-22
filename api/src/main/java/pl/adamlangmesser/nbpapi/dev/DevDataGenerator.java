@@ -22,14 +22,6 @@ class DevDataGenerator implements ApplicationRunner {
     private final AddProductsUseCase productCommandService;
     private final ProductPersistencePort productPersistencePort;
 
-    //  - komputer ACER Aspire – kwota 345 USD
-    //  - komputer DELL Latitude – kwota 543 USD
-    //  - komputer HP Victus – kwota 346 USD
-
-    //    Komputer ACER należy zapisać z datą przewalutowania 5 stycznia 2026.
-    //    Komputer DELL z datą przewalutowania 11 stycznia 2026 a
-    //    komputer HP z datą 19 stycznia 2026.
-
     @Override
     public void run(ApplicationArguments args) {
         productPersistencePort.clear();
