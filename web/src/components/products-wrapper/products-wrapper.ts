@@ -51,7 +51,6 @@ export class ProductsWrapper implements OnInit {
     this.loadProducts(this.pageNumber + 1)
   }
 
-  // TODO: dodać debounce
   loadProducts(newPageNumber: number = 0): void {
     let params = new HttpParams()
       .set('page', newPageNumber)
