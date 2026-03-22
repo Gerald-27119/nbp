@@ -1,7 +1,5 @@
 package pl.adamlangmesser.nbpapi.application;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +16,7 @@ public class ProductQueryService implements QueryProductsUseCase {
     private final ProductPersistencePort persistencePort;
 
     @Override
-    public ProductsPage query(@NotNull @Valid ProductsQuery query) {
+    public ProductsPage query(ProductsQuery query) {
         return persistencePort.query(query);
     }
 }

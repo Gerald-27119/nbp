@@ -8,6 +8,12 @@ Projekt jest aplikacją webową składającą się z:
 
 Aplikacja służy do obsługi produktów, przeliczania ich cen z **USD na PLN** z wykorzystaniem kursu pobieranego z **API NBP**, zapisu danych do **PostgreSQL** oraz eksportu produktów do **plików XML**.
 
+Pliki XML generowane przez aplikację są zapisywane w katalogu:
+
+```text
+data/xmls
+```
+
 ## Architektura backendu
 
 Backend został zaprojektowany w stylu inspirowanym **architekturą heksagonalną (Ports and Adapters)**.

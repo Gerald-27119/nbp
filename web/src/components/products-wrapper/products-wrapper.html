@@ -9,23 +9,25 @@
         class="p-2 rounded-md border shadow-sm min-w-[23vw]"
       />
     </div>
-    <div class="flex flex-col">
-      <label class="text-sm mb-1">Od</label>
+    <div class="flex flex-col cursor-pointer" (click)="fromDate.showPicker()">
+      <label class="text-sm mb-1 cursor-pointer">Od</label>
       <input
+        #fromDate
         type="date"
         [(ngModel)]="dateFrom"
         (change)="loadProducts()"
-        class="p-2 rounded-md border shadow-sm"
+        class="p-2 rounded-md border shadow-sm cursor-pointer"
       />
     </div>
 
-    <div class="flex flex-col">
-      <label class="text-sm mb-1">Do</label>
+    <div class="flex flex-col cursor-pointer" (click)="toDate.showPicker()">
+      <label class="text-sm mb-1 cursor-pointer">Do</label>
       <input
+        #toDate
         type="date"
         [(ngModel)]="dateTo"
         (change)="loadProducts()"
-        class="p-2 rounded-md border shadow-sm"
+        class="p-2 rounded-md border shadow-sm cursor-pointer"
       />
     </div>
 
@@ -34,7 +36,7 @@
       <select
         [(ngModel)]="sortBy"
         (change)="loadProducts()"
-        class="p-2 rounded-md border shadow-sm bg-white"
+        class="p-2 rounded-md border shadow-sm bg-white hover:cursor-pointer"
       >
         <option value="bookingDate">Data księgowania</option>
         <option value="name">Nazwa</option>
@@ -46,7 +48,7 @@
       <select
         [(ngModel)]="sortDirection"
         (change)="loadProducts()"
-        class="p-2 rounded-md border shadow-sm bg-white"
+        class="p-2 rounded-md border shadow-sm bg-white hover:cursor-pointer"
       >
         <option value="desc">Malejąco</option>
         <option value="asc">Rosnąco</option>
@@ -65,19 +67,17 @@
     <p>cena PLN</p>
   </div>
 
-  <div class="min-h-[70vh]">
-    <app-products [products]="products()"></app-products>
-  </div>
+  <app-products [products]="products()"></app-products>
 
   <div class="flex mt-3">
     <button [disabled]="!hasPrevious"
-            (click) = "handlePrevious()"
-            class="bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-300 transition py-1 px-2 rounded-xl  disabled:bg-gray-300 disabled:cursor-not-allowed" >
+            (click)="handlePrevious()"
+            class="bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-300 transition py-1 px-2 rounded-xl  disabled:bg-gray-300 disabled:cursor-not-allowed">
       poprzednia
     </button>
     <div class="text-center mx-auto ">strona: {{ pageNumber + 1 }}</div>
     <button [disabled]="!hasNext"
-            (click) = "handleNext()"
+            (click)="handleNext()"
             class="bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-300 transition py-1 px-2 rounded-xl  disabled:bg-gray-300 disabled:cursor-not-allowed">
       następna
     </button>
